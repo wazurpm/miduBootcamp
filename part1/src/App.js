@@ -6,6 +6,7 @@ const Description = () => {
   <p>Esta es la descripción del curso fullstack bootcamp</p>
   )
 }
+
 const App = () => {
   return (
     <div className="App">
