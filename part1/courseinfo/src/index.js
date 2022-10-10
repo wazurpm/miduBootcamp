@@ -7,14 +7,14 @@ const Header = (props) => {
 
 const Content = (props) => {
   return <>
-    <p>{props.course.parts[0]["title"]} {props.course.parts[0]["excercises"]}</p>
-    <p>{props.course.parts[1]["title"]} {props.course.parts[1]["excercises"]}</p>
-    <p>{props.course.parts[2]["title"]} {props.course.parts[2]["excercises"]}</p>
+    <p>{props.course.parts[0]["title"]}: {props.course.parts[0]["excercises"]}</p>
+    <p>{props.course.parts[1]["title"]}: {props.course.parts[1]["excercises"]}</p>
+    <p>{props.course.parts[2]["title"]}: {props.course.parts[2]["excercises"]}</p>
   </>
 }
 
 const Total = (props) => {
-  return <>{
+  return <>Total parts: {
     props.course.parts[0]["excercises"] +
     props.course.parts[1]["excercises"] +
     props.course.parts[2]["excercises"]
