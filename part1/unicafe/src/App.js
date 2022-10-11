@@ -37,7 +37,25 @@ const App = () => {
       }
     }
 
-  return (<>
+  const all = () => {
+    const values = statistics.values()
+    const sum = values.reduce((accumulator, value) => {
+      return accumulator + value;
+    }, 0)
+    return () => {sum};
+  }
+
+  const average = () => {
+    return () => {all / 3};
+  }
+
+  const positive = () => {
+    const count = statistics .good;
+    const percentag = (count * 100) / all;
+    return () => {percentage}
+  }
+
+  return (<div>
     <h1>give feedback</h1>
     <div>
       <button onClick={feedback('good')}>good</button>
@@ -48,7 +66,10 @@ const App = () => {
     <p>good {statistics.good}</p>
     <p>neutral {statistics.neutral}</p>
     <p>bad {statistics.bad}</p>
-  </>);
+    <p>all {all}</p>
+    <p>average {average}</p>
+    <p>positive {positive}</p>
+  </div>);
 }
 
 export default App;
