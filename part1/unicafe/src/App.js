@@ -1,6 +1,31 @@
 import './App.css';
 import { useState } from 'react';
 
+const NoFeedback = () => {
+  return <h3>No feedback given</h3>
+}
+
+const Statistics = ({data}) => {
+  const all = data.good + data.neutral + data.bad;
+  const average =  all / 3;
+  const positive = data.good * 100 / all;
+
+  return (<table>
+    <tr>
+      <td>all</td>
+      <td>{all}</td>
+    </tr>
+    <tr>
+      <td>average</td>
+      <td>{average}</td>
+    </tr>
+    <tr>
+      <td>positive</td>
+      <td>{positive}%</td>
+    </tr>
+  </table>);
+}
+
 const App = () => {
 
   const [statistics, setStatistics] = useState({
@@ -10,51 +35,32 @@ const App = () => {
   })
 
   const feedback = (action) => {
-      if(action === 'good'){
-        return () => {setStatistics((prevSatistics) => {
-          const newStatistics = {
-            ...prevSatistics,
-            good: statistics.good + 1
-          }
-          return newStatistics
-        })};
-      } else if(action === 'neutral'){
-        return () => {setStatistics((prevSatistics) => {
-          const newStatistics = {
-            ...prevSatistics,
-            neutral: statistics.neutral + 1
-          }
-          return newStatistics
-        })};
-      } else if(action === 'bad'){
-        return () => {setStatistics((prevSatistics) => {
-          const newStatistics = {
-            ...prevSatistics,
-            bad: statistics.bad + 1
-          }
-          return newStatistics
-        })};
-      }
+    if(action === 'good'){
+      return () => {setStatistics((prevSatistics) => {
+        const newStatistics = {
+          ...prevSatistics,
+          good: statistics.good + 1
+        }
+        return newStatistics
+      })};
+    } else if(action === 'neutral'){
+      return () => {setStatistics((prevSatistics) => {
+        const newStatistics = {
+          ...prevSatistics,
+          neutral: statistics.neutral + 1
+        }
+        return newStatistics
+      })};
+    } else if(action === 'bad'){
+      return () => {setStatistics((prevSatistics) => {
+        const newStatistics = {
+          ...prevSatistics,
+          bad: statistics.bad + 1
+        }
+        return newStatistics
+      })};
     }
-
-  const all = () => {
-    const values = statistics.values()
-    const sum = values.reduce((accumulator, value) => {
-      return accumulator + value;
-    }, 0)
-    return () => {sum};
   }
-
-  const average = () => {
-    return () => {all / 3};
-  }
-
-  const positive = () => {
-    const count = statistics .good;
-    const percentag = (count * 100) / all;
-    return () => {percentage}
-  }
-
   return (<div>
     <h1>give feedback</h1>
     <div>
@@ -63,12 +69,23 @@ const App = () => {
       <button onClick={feedback('bad')}>bad</button>
     </div>
     <h1>statistics</h1>
-    <p>good {statistics.good}</p>
-    <p>neutral {statistics.neutral}</p>
-    <p>bad {statistics.bad}</p>
-    <p>all {all}</p>
-    <p>average {average}</p>
-    <p>positive {positive}</p>
+    <table>
+      <tr>
+        <td>good</td>
+        <td>{statistics.good}</td>
+      </tr>
+      <tr>
+        <td>neutral</td>
+        <td>{statistics.neutral}</td>
+      </tr>
+      <tr>
+        <td>bad</td>
+        <td>{statistics.bad}</td>
+      </tr>
+    </table>
+    {statistics.good===0&&statistics.neutral===0&&statistics.bad===0
+    ? <NoFeedback />
+    : <Statistics data={statistics}/>}
   </div>);
 }
 
